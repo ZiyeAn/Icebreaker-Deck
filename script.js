@@ -66,6 +66,6 @@ if (window.location.pathname.endsWith('answers.html')) {
         `);
     }
 
-    // laoding
+    // loading
     window.onload = renderAnswers;
 }
