@@ -1,4 +1,4 @@
-// 创建名牌逻辑
+// create profile
 if (window.location.pathname.endsWith('index.html')) {
     document.getElementById('profile-form').addEventListener('submit', function (e) {
         e.preventDefault();
@@ -12,7 +12,7 @@ if (window.location.pathname.endsWith('index.html')) {
     });
 }
 
-// 问题卡片逻辑
+// questions
 if (window.location.pathname.endsWith('questions.html')) {
     document.querySelectorAll('.question-card').forEach(card => {
         card.addEventListener('click', function () {
@@ -27,7 +27,7 @@ if (window.location.pathname.endsWith('questions.html')) {
                 };
                 saveAnswer(answerData);
 
-                // 跳转到 answers.html
+                // jump to answers.html
                 window.location.href = 'answers.html';
             }
         });
@@ -40,7 +40,7 @@ if (window.location.pathname.endsWith('questions.html')) {
     }
 }
 
-// 查看回答逻辑
+// answers
 if (window.location.pathname.endsWith('answers.html')) {
     function renderAnswers() {
         const container = document.getElementById('answers-container');
@@ -66,6 +66,6 @@ if (window.location.pathname.endsWith('answers.html')) {
         `);
     }
 
-    // 页面加载时渲染回答
+    // laoding
     window.onload = renderAnswers;
 }
