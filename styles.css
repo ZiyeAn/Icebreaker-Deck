@@ -117,3 +117,19 @@ form button:hover {
 .answer-card button:hover {
     background-color: #0056b3;
 }
+
+#create-new-profile {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#create-new-profile:hover {
+    background-color: #45a049;
+}

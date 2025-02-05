@@ -5,14 +5,16 @@ const currentPage = window.location.pathname;
 if (currentPage.endsWith('index.html')) {
     window.onload = function () {
         const savedProfile = JSON.parse(localStorage.getItem('userProfile'));
-        if (savedProfile) {
-            document.getElementById('display-name').textContent = savedProfile.name;
-            document.getElementById('display-bio').textContent = savedProfile.bio;
-            document.getElementById('display-interests').textContent = savedProfile.interests;
-            document.getElementById('profile-pic').src = savedProfile.avatar;
+        const currentProfileName = localStorage.getItem('currentProfile');
 
-            // after profile created, go to questions
-            document.getElementById('go-to-questions').style.display = 'block';
+        if (savedProfile) {
+            const currentProfile = savedProfiles.find(profile => profile.name === currentProfileName);
+            if (currentProfile) {
+                document.getElementById('display-name').textContent = savedProfile.name;
+                document.getElementById('display-bio').textContent = savedProfile.bio;
+                document.getElementById('display-interests').textContent = savedProfile.interests;
+                document.getElementById('profile-pic').src = savedProfile.avatar;
+            }
         }
     };
 
@@ -28,12 +30,24 @@ if (currentPage.endsWith('index.html')) {
             return;
         }
 
-        const profile = { name, bio, interests, avatar };
-        localStorage.setItem('userProfile', JSON.stringify(profile));
+        const newProfile = { name, bio, interests, avatar };
+        let savedProfiles = JSON.parse(localStorage.getItem('userProfiles')) || [];
+
+        const existingProfileIndex = savedProfiles.findIndex(profile => profile.name === name);
+        if (existingProfileIndex !== -1) {
+            alert('profile with this name already exists!');
+            return;
+        }
+
+        savedProfiles.push(newProfile);
+        localStorage.setItem('userProfiles', JSON.stringify(savedProfiles));
+
+        // sets current active profile
+        localStorage.setItem('currentProfile', name);
 
         // update profile display
         document.getElementById('display-name').textContent = name;
-        document.getElementById('display-bio').textContent = bio || 'A short bio about yourself...';
+        document.getElementById('display-bio').textContent = bio || 'tell me about yourself...';
         document.getElementById('display-interests').textContent = interests || 'None';
         document.getElementById('profile-pic').src = avatar;
 
@@ -63,31 +77,27 @@ if (currentPage.endsWith('index.html')) {
 
 // questions page function, questions.html
 if (window.location.pathname.endsWith('questions.html')) {
-    let hasAnswered = localStorage.getItem('hasAnswered');
+    let currentProfileName = localStorage.getItem('currentProfile');
+    let savedProfiles = JSON.parse(localStorage.getItem('userProfiles')) || [];
 
-    // if question is already answered
-    if (hasAnswered) {
-        alert("you already answered a question! going to answers...");
-        window.location.href = 'answers.html';
+    // if no profile, redirect to index
+    if (!currentProfileName) {
+        alert("no profile, please create a profile first!");
+        window.location.href = 'index.html';
     }
+
+    let currentProfile = savedProfiles.find(profile => profile.name === currentProfileName);
 
     document.querySelectorAll('.question-card').forEach(card => {
         card.addEventListener('click', function () {
-            if (localStorage.getItem('hasAnswered')) {
-                alert("you already chose your question!");
-                return;
-            }
-
             const question = this.getAttribute('data-question');
 
             let answers = JSON.parse(localStorage.getItem('answers')) || [];
-            let userProfile = JSON.parse(localStorage.getItem('userProfile'));
+            let profileAnswers = answers.filter(answer => answer.user.name === currentProfile.name);
 
-            // checks if user already answered question
-            let alreadyAnswered = answers.some(ans => ans.user.name === userProfile.name);
-
-            if (alreadyAnswered) {
-                alert("you already chose your question!");
+            // checks if profile has already answered
+            if (profileAnswers.length > 0) {
+                alert("you already answered a question!");
                 return;
             }
 
@@ -97,7 +107,7 @@ if (window.location.pathname.endsWith('questions.html')) {
                 const answerData = {
                     question,
                     answer,
-                    user: userProfile
+                    user: currentProfile
                 };
                 saveAnswer(answerData);
 
@@ -149,4 +159,11 @@ if (currentPage.endsWith('answers.html')) {
 
     // loads answers
     window.onload = renderAnswers;
+
+    // create new profile
+    function createNewProfile() {
+        
+        // redirect to index.html
+        window.location.href = 'index.html';
+    }
 }
