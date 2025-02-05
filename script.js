@@ -61,35 +61,59 @@ if (currentPage.endsWith('index.html')) {
     });
 }
 
-// questions page function, quetsions.html
-if (currentPage.endsWith('questions.html')) {
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.question-card').forEach(card => {
-            card.addEventListener('click', function () {
-                const question = this.getAttribute('data-question');
-                const answer = prompt(`Question: ${question}\nAnswer:`);
+// questions page function, questions.html
+if (window.location.pathname.endsWith('questions.html')) {
+    let hasAnswered = localStorage.getItem('hasAnswered');
 
-                if (answer) {
-                    const userProfile = JSON.parse(localStorage.getItem('userProfile'));
-                    const answerData = {
-                        question,
-                        answer,
-                        user: userProfile
-                    };
-                    saveAnswer(answerData);
+    // if question is already answered
+    if (hasAnswered) {
+        alert("you already answered a question! going to answers...");
+        window.location.href = 'answers.html';
+    }
 
-                    // go to answers
-                    window.location.href = 'answers.html';
-                }
-            });
-        });
+    document.querySelectorAll('.question-card').forEach(card => {
+        card.addEventListener('click', function () {
+            if (localStorage.getItem('hasAnswered')) {
+                alert("you already chose your question!");
+                return;
+            }
 
-        function saveAnswer(answerData) {
+            const question = this.getAttribute('data-question');
+
             let answers = JSON.parse(localStorage.getItem('answers')) || [];
-            answers.push(answerData);
-            localStorage.setItem('answers', JSON.stringify(answers));
-        }
+            let userProfile = JSON.parse(localStorage.getItem('userProfile'));
+
+            // checks if user already answered question
+            let alreadyAnswered = answers.some(ans => ans.user.name === userProfile.name);
+
+            if (alreadyAnswered) {
+                alert("you already chose your question!");
+                return;
+            }
+
+            const answer = prompt(`Question: ${question}\nAnswer:`);
+
+            if (answer) {
+                const answerData = {
+                    question,
+                    answer,
+                    user: userProfile
+                };
+                saveAnswer(answerData);
+
+                localStorage.setItem('hasAnswered', 'true');
+
+                // go to answers
+                window.location.href = 'answers.html';
+            }
+        });
     });
+
+    function saveAnswer(answerData) {
+        let answers = JSON.parse(localStorage.getItem('answers')) || [];
+        answers.push(answerData);
+        localStorage.setItem('answers', JSON.stringify(answers));
+    }
 }
 
 // answers, answers.html
