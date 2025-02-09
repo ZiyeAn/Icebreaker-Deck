@@ -1,0 +1,160 @@
+body {
+    font-family: "Eater", serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+    overflow: hidden;
+}
+
+/* stars */
+
+#stars, #stars2, #stars3 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+#stars {
+    width: 1px;
+    height: 1px;
+    background: transparent;
+    animation: animStar 50s linear infinite;
+    z-index: -3;
+}
+
+#stars2 {
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    animation: animStar 100s linear infinite;
+    z-index: -2;
+}
+
+#stars3 {
+    width: 3px;
+    height: 3px;
+    background: transparent;
+    animation: animStar 150s linear infinite;
+    z-index: -1;
+}
+
+#stars:after, #stars2:after, #stars3:after {
+    content: " ";
+    position: absolute;
+    top: 100vh;
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes animStar {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-100vh);
+    }
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100vh;
+}
+
+.profile-card, .form-container {
+    width: 350px;
+    min-height: 450px;
+    background: linear-gradient(145deg, #000000, #323232);
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+    color: white;
+}
+
+.profile-card:hover, .form-container:hover {
+    transform: scale(1.05);
+}
+
+.profile-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid white;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.profile-card h2 {
+    font-family: "Eater", serif;
+    font-size: 2rem;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.profile-card p {
+    font-family: "Mountains of Christmas", serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #ccc;
+}
+
+.form-container input, .form-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #fff;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+}
+
+.form-container button {
+    background: transparent;
+    color: rgb(172, 46, 172);
+    border: 1px solid rgb(172, 46, 172);
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.form-container button:hover {
+    background: rgba(172, 46, 172, 0.1);
+    transform: translateY(-2px);
+}
+
+.avatar-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 0px;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.avatar:hover {
+    transform: scale(1.1);
+}

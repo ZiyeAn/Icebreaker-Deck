@@ -63,16 +63,7 @@ if (currentPage.endsWith('index.html')) {
     // sets avatar from choice
     function setAvatar(avatarSrc) {
         document.getElementById('profile-pic').src = avatarSrc;
-    }
-
-    // or upload pfp
-    document.getElementById('profile-pic-upload').addEventListener('change', function (e) {
-        const reader = new FileReader();
-        reader.onload = function () {
-            document.getElementById('profile-pic').src = reader.result;
-        };
-        reader.readAsDataURL(e.target.files[0]);
-    });
+    };   
 }
 
 

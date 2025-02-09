@@ -4,45 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Icebreaker</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="profile.css">
 </head>
 <body>
-
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+    
     <div class="container">
         <!-- profile card -->
         <div class="profile-card" id="profile-card">
-            <img id="profile-pic" src="default.jpg" alt="Profile Picture">
+            <img id="profile-pic" src="assets/default.jpg">
             <h2 id="display-name">name</h2>
             <p id="display-bio">something interesting here...</p>
             <p><strong>what do you like?</strong> <br>
-                <span id="display-interests">games are the only correct answer ahahaha...</span></p>
+                <span id="display-interests">...</span></p>
         </div>
 
         <!-- user inputs -->
         <div class="form-container" id="form-container">
-            <h3>who are you?</h3>
+            <h3>hello there, magical creature!</h3>
             <label for="name">what should i call you?</label> <br>
-            <input type="text" id="name" placeholder="call me..."> <br>
+            <input type="text" id="name" placeholder="who are you, magical creature?"> <br>
 
             <label for="bio">tell me about yourself!</label> <br>
-            <textarea id="bio" placeholder="you're not suspicious right..."></textarea> <br>
+            <textarea id="bio" placeholder="what kind of magical creature are you?"></textarea> <br>
 
             <label for="interests">what do you like?</label> <br>
-            <input type="text" id="interests" placeholder="i'm totally not judging"> <br>
+            <input type="text" id="interests" placeholder="what does this magical creature like?"> <br>
 
-            <label for="profile-pic-upload">upload ur photo:</label> <br>
-            <input type="file" id="profile-pic-upload" accept="image/*"> <br>
-
-            <h4>or choose one of ours!</h4>
+            <h4>choose one of our avatars!</h4>
             <div class="avatar-gallery">
-                <img src="avatar1.jpg" class="avatar" onclick="setAvatar('avatar1.jpg')">
-                <img src="avatar2.jpg" class="avatar" onclick="setAvatar('avatar2.jpg')">
-                <img src="avatar3.jpg" class="avatar" onclick="setAvatar('avatar3.jpg')">
-                <img src="avatar4.jpg" class="avatar" onclick="setAvatar('avatar4.jpg')">
+                <img src="assets/avatar1.jpg" class="avatar" onclick="setAvatar('assets/avatar1.jpg')">
+                <img src="assets/avatar2.jpg" class="avatar" onclick="setAvatar('assets/avatar2.jpg')">
+                <img src="assets/avatar3.jpg" class="avatar" onclick="setAvatar('assets/avatar3.jpg')">
+                <img src="assets/avatar4.jpg" class="avatar" onclick="setAvatar('assets/avatar4.jpg')">
             </div>
 
             <button onclick="updateProfile()">show me who you are!</button>
-            <button id="go-to-questions" style="display:none;" onclick="goToQuestions()">icebreaker time!</button>
+            <button id="go-to-questions" style="display:none;" onclick="goToQuestions()">let's break the ice!</button>
         </div>
     </div>
 
