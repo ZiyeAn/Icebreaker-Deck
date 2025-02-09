@@ -1,0 +1,242 @@
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+    overflow: hidden;
+}
+
+/* Stars Animation */
+#stars, #stars2, #stars3 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+#stars {
+    width: 1px;
+    height: 1px;
+    background: transparent;
+    animation: animStar 50s linear infinite;
+    z-index: -3;
+}
+
+#stars2 {
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    animation: animStar 100s linear infinite;
+    z-index: -2;
+}
+
+#stars3 {
+    width: 3px;
+    height: 3px;
+    background: transparent;
+    animation: animStar 150s linear infinite;
+    z-index: -1;
+}
+
+#stars:after, #stars2:after, #stars3:after {
+    content: " ";
+    position: absolute;
+    top: 100vh;
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes animStar {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-100vh);
+    }
+}
+
+/* Your existing styles */
+p {
+    font-family: "Mountains of Christmas", serif;
+    font-weight: 400;
+    font-style: bold;
+    font-size: 1rem;
+    color: #fff;
+}
+
+h1 {
+    font-family: "Eater", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 3rem;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Container for title and questions */
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+/* Question Card Wrapper */
+.cards-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    height: 60vh;
+    position: relative;
+    perspective: 2000px;
+}
+
+/* Individual Question Cards */
+.question-card {
+    width: 170px;
+    height: 300px;
+    background-color: transparent;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 16px;
+    padding: 20px;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute;
+    cursor: pointer;
+    transform-style: preserve-3d;
+}
+
+/* Card Front and Back */
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-front {
+    background-color: #fff;
+    transform: rotateY(0deg);
+}
+
+.card-front img {
+    height: 100%;
+    width: 100%;
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+.card-back {
+    background: linear-gradient(145deg, #000000, #323232);
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    transform: rotateY(180deg);
+}
+
+/* Hover Effect with 3D perspective */
+.question-card:not(.active) {
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.question-card:not(.active):hover {
+    transform: scale(1.05);
+}
+
+.question-card:not(.active):hover .card-front {
+    transform: rotateY(180deg);
+}
+
+.question-card:not(.active):hover .card-back {
+    transform: rotateY(0deg);
+}
+
+/* Active Card with 3D flip */
+.question-card.active {
+    width: 200px;
+    height: 350px;
+    font-size: 18px;
+    z-index: 10;
+    transform: translateY(0) scale(1.2);
+}
+
+.question-card.active .card-front {
+    transform: rotateY(180deg);
+}
+
+.question-card.active .card-back {
+    transform: rotateY(0deg);
+}
+
+/* Enhanced Side Cards with perspective */
+.question-card.left {
+    transform: rotate(-15deg) translateX(-250px) scale(0.9) translateZ(-100px);
+}
+
+.question-card.right {
+    transform: rotate(15deg) translateX(250px) scale(0.9) translateZ(-100px);
+}
+
+.question-card.far-left {
+    transform: rotate(-30deg) translateX(-400px) scale(0.7) translateZ(-200px);
+}
+
+.question-card.far-right {
+    transform: rotate(30deg) translateX(400px) scale(0.7) translateZ(-200px);
+}
+
+/* Add perspective to wrapper */
+.cards-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    height: 60vh;
+    position: relative;
+    perspective: 2000px;
+}
+
+/* Add smooth transition for all transformations */
+.question-card, .card-front, .card-back {
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Add some depth to cards */
+.card-front, .card-back {
+    box-shadow: 
+        0 4px 8px rgba(0,0,0,0.1),
+        0 0 0 1px rgba(0,0,0,0.05);
+}
+
+.question-card:hover .card-front,
+.question-card:hover .card-back,
+.question-card.active .card-front,
+.question-card.active .card-back {
+    box-shadow: 
+        0 8px 16px rgba(0,0,0,0.2),
+        0 0 0 1px rgba(0,0,0,0.05);
+}
+
