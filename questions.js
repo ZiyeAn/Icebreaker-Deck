@@ -165,4 +165,38 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    function createAnswerInput(card) {
+        const cardBack = card.querySelector('.card-back');
+        
+        // Remove any existing answer sections
+        const existingSection = cardBack.querySelector('.answer-input-section');
+        if (existingSection) {
+            existingSection.remove();
+        }
+
+        const answerSection = document.createElement('div');
+        answerSection.className = 'answer-input-section';
+        answerSection.innerHTML = `
+            <textarea placeholder="Type your answer here..." required></textarea>
+            <div class="underline"></div>
+            <div class="sideline"></div>
+            <div class="upperline"></div>
+            <div class="line"></div>
+            <div class="answer-buttons">
+                <button class="submit">Submit</button>
+                <button class="cancel">Cancel</button>
+            </div>
+        `;
+
+        cardBack.appendChild(answerSection);
+        
+        // Show the section after a brief delay (for animation)
+        setTimeout(() => {
+            answerSection.classList.add('show');
+            answerSection.querySelector('textarea').focus();
+        }, 50);
+
+        // Rest of your event handlers...
+    }
 });

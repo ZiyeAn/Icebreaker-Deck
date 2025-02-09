@@ -153,6 +153,16 @@ h1 {
     padding: 20px;
     box-sizing: border-box;
     transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.card-back p {
+    margin: 0;
+    font-size: 1.2em;
+    flex-shrink: 0;
 }
 
 /* Hover Effect with 3D perspective */
@@ -238,5 +248,67 @@ h1 {
     box-shadow: 
         0 8px 16px rgba(0,0,0,0.2),
         0 0 0 1px rgba(0,0,0,0.05);
+}
+
+/* Update answer input section styles */
+.answer-input-section {
+    width: 100%;
+    opacity: 0;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.answer-input-section.show {
+    opacity: 1;
+}
+
+/* Style the textarea with dark theme */
+.answer-input-section textarea {
+    font-size: 16px;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-bottom: 2px solid #a5a2a2;
+    outline: none;
+    width: 100%;
+    height: 80px;
+    background-color: transparent;
+    font-family: 'Lato', sans-serif;
+    resize: none;
+    padding: 10px 0;
+}
+
+/* Button styles */
+.answer-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.answer-buttons button {
+    background: transparent;
+    color: rgb(172, 46, 172);
+    border: 1px solid rgb(172, 46, 172);
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.answer-buttons button:hover {
+    background: rgba(172, 46, 172, 0.1);
+    transform: translateY(-2px);
+}
+
+.answer-buttons .cancel {
+    color: #e74c3c;
+    border-color: #e74c3c;
+}
+
+.answer-buttons .cancel:hover {
+    background: rgba(231, 76, 60, 0.1);
 }
 
