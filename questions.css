@@ -155,14 +155,25 @@ h1 {
     transform: rotateY(180deg);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     gap: 15px;
+    transition: justify-content 0.3s ease;
+}
+
+.card-back.active {
+    justify-content: flex-start;
 }
 
 .card-back p {
     margin: 0;
     font-size: 1.2em;
-    flex-shrink: 0;
+    text-align: center;
+    transition: text-align 0.3s ease;
+}
+
+.card-back.active p {
+    text-align: left;
 }
 
 /* Hover Effect with 3D perspective */
@@ -266,18 +277,46 @@ h1 {
 }
 
 /* Style the textarea with dark theme */
-.answer-input-section textarea {
-    font-size: 16px;
-    color: rgb(255, 255, 255);
-    border: none;
-    border-bottom: 2px solid #a5a2a2;
-    outline: none;
+/* From Uiverse.io by coslac */ 
+/* From Uiverse.io by Smit-Prajapati */
+.input-container {
+    display: flex;
+    background:black;
+    border-radius: 1rem;
+    padding: 0.3rem;
+    gap: 0.3rem;
+}
+
+.input-container textarea {
+    font-family: "Mountains of Christmas", serif;
+    font-weight: 400;
+    font-style: bold;
+    font-size: 1rem;
+    place-self: center;
+    border-radius: 0.8rem;
+    background: black;
     width: 100%;
-    height: 80px;
-    background-color: transparent;
-    font-family: 'Lato', sans-serif;
+    padding: 1rem;
+    border: 1px solid transparent;
+    color: white;
+    transition: all 0.2s ease-in-out;
     resize: none;
-    padding: 10px 0;
+}
+
+.input-container textarea:focus {
+    border: 1px solid #ffd43b;
+    outline: none;
+    box-shadow:
+        inset 0px 0px 10px rgba(255, 102, 0, 0.5),
+        inset 0px 0px 10px rgba(255, 212, 59, 0.5),
+        0px 0px 100px rgba(255, 212, 59, 0.5),
+        0px 0px 100px rgba(255, 102, 0, 0.5);
+}
+
+@media (max-width: 500px) {
+    .input-container {
+        flex-direction: column;
+    }
 }
 
 /* Button styles */
@@ -288,27 +327,28 @@ h1 {
 }
 
 .answer-buttons button {
+    font-family: "Mountains of Christmas", serif;
+    font-weight: 400;
+    font-style: bold;
+    font-size: 1rem;
     background: transparent;
-    color: rgb(172, 46, 172);
-    border: 1px solid rgb(172, 46, 172);
+    color: white;
+    border: none;
     padding: 8px 20px;
     border-radius: 4px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 14px;
+    transition: color 0.3s ease;
 }
 
 .answer-buttons button:hover {
-    background: rgba(172, 46, 172, 0.1);
-    transform: translateY(-2px);
+    color: #ffd43b;
 }
 
 .answer-buttons .cancel {
-    color: #e74c3c;
-    border-color: #e74c3c;
+    background: transparent;
 }
 
 .answer-buttons .cancel:hover {
-    background: rgba(231, 76, 60, 0.1);
+    color: #ffd43b;
 }
 

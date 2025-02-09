@@ -94,15 +94,6 @@ if (window.location.pathname.endsWith('questions.html')) {
         card.addEventListener('click', function () {
             const question = this.getAttribute('data-question');
 
-            let answers = JSON.parse(localStorage.getItem('answers')) || [];
-            let profileAnswers = answers.filter(answer => answer.user.name === currentProfile.name && answer.question === question);
-
-            // Check if this specific question has been answered
-            if (profileAnswers.length > 0) {
-                alert("You've already answered this question!");
-                return;
-            }
-
             // Create answer input section
             createAnswerInput(this);
         });
@@ -120,11 +111,9 @@ if (window.location.pathname.endsWith('questions.html')) {
         const answerSection = document.createElement('div');
         answerSection.className = 'answer-input-section';
         answerSection.innerHTML = `
-            <textarea placeholder="Type your answer here..." required></textarea>
-            <div class="underline"></div>
-            <div class="sideline"></div>
-            <div class="upperline"></div>
-            <div class="line"></div>
+            <div class="input-container">
+                <textarea placeholder="Type your answer here..." required></textarea>
+            </div>
             <div class="answer-buttons">
                 <button class="submit">Submit</button>
                 <button class="cancel">Cancel</button>
@@ -395,7 +384,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const answerSection = document.createElement('div');
         answerSection.className = 'answer-input-section';
         answerSection.innerHTML = `
-            <textarea placeholder="Type your answer here..." required></textarea>
+            <div class="input-container">
+                <textarea placeholder="Type your answer here..." required></textarea>
+            </div>
             <div class="answer-buttons">
                 <button class="submit">Submit</button>
                 <button class="cancel">Cancel</button>
