@@ -5,7 +5,7 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+    background: radial-gradient(ellipse at bottom,#1a2664 0%, #0e1333 100%);
     overflow: hidden;
 }
 
@@ -304,13 +304,13 @@ h1 {
 }
 
 .input-container textarea:focus {
-    border: 1px solid #ffd43b;
+    border: 1px solid #e4a9c3;
     outline: none;
     box-shadow:
-        inset 0px 0px 10px rgba(255, 102, 0, 0.5),
-        inset 0px 0px 10px rgba(255, 212, 59, 0.5),
-        0px 0px 100px rgba(255, 212, 59, 0.5),
-        0px 0px 100px rgba(255, 102, 0, 0.5);
+        inset 0px 0px 10px rgba(255, 176, 216, 0.5),
+        inset 0px 0px 10px rgba(255, 59, 193, 0.5),
+        0px 0px 100px rgba(255, 59, 167, 0.5),
+        0px 0px 100px rgba(255, 0, 170, 0.5);
 }
 
 @media (max-width: 500px) {
@@ -341,7 +341,7 @@ h1 {
 }
 
 .answer-buttons button:hover {
-    color: #ffd43b;
+    color: #e4a9c3;
 }
 
 .answer-buttons .cancel {
@@ -349,6 +349,6 @@ h1 {
 }
 
 .answer-buttons .cancel:hover {
-    color: #ffd43b;
+    color: #e4a9c3;
 }
 
