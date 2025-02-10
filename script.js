@@ -10,10 +10,10 @@ if (currentPage.endsWith('index.html')) {
         if (savedProfile) {
             const currentProfile = savedProfiles.find(profile => profile.name === currentProfileName);
             if (currentProfile) {
-                document.getElementById('display-name').textContent = savedProfile.name;
-                document.getElementById('display-bio').textContent = savedProfile.bio;
-                document.getElementById('display-interests').textContent = savedProfile.interests;
-                document.getElementById('profile-pic').src = savedProfile.avatar;
+            document.getElementById('display-name').textContent = savedProfile.name;
+            document.getElementById('display-bio').textContent = savedProfile.bio;
+            document.getElementById('display-interests').textContent = savedProfile.interests;
+            document.getElementById('profile-pic').src = savedProfile.avatar;
             }
         }
     };
@@ -81,9 +81,9 @@ if (window.location.pathname.endsWith('questions.html')) {
 
     let currentProfile = savedProfiles.find(profile => profile.name === currentProfileName);
 
-    document.querySelectorAll('.question-card').forEach(card => {
-        card.addEventListener('click', function () {
-            const question = this.getAttribute('data-question');
+        document.querySelectorAll('.question-card').forEach(card => {
+            card.addEventListener('click', function () {
+                const question = this.getAttribute('data-question');
 
             // Create answer input section
             createAnswerInput(this);
@@ -127,15 +127,15 @@ if (window.location.pathname.endsWith('questions.html')) {
                 return;
             }
 
-            const answerData = {
+                    const answerData = {
                 question: card.getAttribute('data-question'),
-                answer,
+                        answer,
                 user: currentProfile
-            };
-            saveAnswer(answerData);
+                    };
+                    saveAnswer(answerData);
 
             // Redirect to answers page
-            window.location.href = 'answers.html';
+                    window.location.href = 'answers.html';
         });
 
         // Handle cancel button
@@ -145,55 +145,12 @@ if (window.location.pathname.endsWith('questions.html')) {
         });
     }
 
-    function saveAnswer(answerData) {
-        let answers = JSON.parse(localStorage.getItem('answers')) || [];
-        answers.push(answerData);
-        localStorage.setItem('answers', JSON.stringify(answers));
-    }
+        function saveAnswer(answerData) {
+            let answers = JSON.parse(localStorage.getItem('answers')) || [];
+            answers.push(answerData);
+            localStorage.setItem('answers', JSON.stringify(answers));
+        }
 }
-
-// answers, answers.html
-if (currentPage.endsWith('answers.html')) {
-    function renderAnswers() {
-        const container = document.getElementById('answers-container');
-        const answers = JSON.parse(localStorage.getItem('answers')) || [];
-
-        container.innerHTML = ''; // clears previous answers
-
-        answers.forEach((answerData, index) => {
-            const card = document.createElement('div');
-            card.className = 'answer-card';
-            card.innerHTML = `
-                <p><strong>Q:</strong> ${answerData.question}</p>
-                <p><strong>A:</strong> ${answerData.answer}</p>
-                <button onclick="showUserProfile(${index})">who else answered?</button>
-            `;
-            container.appendChild(card);
-        });
-    }
-
-    function showUserProfile(answerIndex) {
-        const answers = JSON.parse(localStorage.getItem('answers')) || [];
-        const userProfile = answers[answerIndex].user;
-
-        alert(`
-            name: ${userProfile.name}
-            bio: ${userProfile.bio || 'no bio here, hmmm...'}
-            hobbies: ${userProfile.interests || 'none... boring!'}
-        `);
-    }
-
-    // loads answers
-    window.onload = renderAnswers;
-
-    // create new profile
-    function createNewProfile() {
-        
-        // redirect to index.html
-        window.location.href = 'index.html';
-    }
-}
-
 
 function generateStars(element, count, size) {
     let boxShadow = '';
@@ -395,3 +352,56 @@ document.addEventListener('DOMContentLoaded', () => {
         // Rest of your event handlers...
     }
 })
+
+
+
+// answers, answers.html
+if (window.location.pathname.endsWith('answers.html')) {
+    function renderAnswers() {
+        const container = document.getElementById('answers-container');
+        const answers = JSON.parse(localStorage.getItem('answers')) || [];
+
+        container.innerHTML = ''; // clears previous answers
+
+        answers.forEach((answerData, index) => {
+            const card = document.createElement('div');
+            card.className = 'answer-card';
+            card.innerHTML = `
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p><strong>Q:</strong> ${answerData.question}</p>
+                        <p><strong>A:</strong> ${answerData.answer}</p>
+                    </div>
+                    <div class="card-back">
+                        <img src="${answerData.user.avatar}" alt="${answerData.user.name}'s avatar" class="profile-pic">
+                        <p><strong>Name:</strong> ${answerData.user.name}</p>
+                        <p><strong>Bio:</strong> ${answerData.user.bio || 'No bio provided'}</p>
+                        <p><strong>Interests:</strong> ${answerData.user.interests || 'Not shared'}</p>
+                    </div>
+                </div>
+            `;
+
+            // Attach click event to send data to server
+            card.addEventListener('click', () => {
+                const printData = {
+                    name: answerData.user.name,
+                    question: answerData.question,
+                    answer: answerData.answer,
+                };
+
+                fetch('http://localhost:3000/print', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(printData)
+                })
+                .then(response => response.json())
+                .then(data => console.log('Print request sent:', data))
+                .catch(error => console.error('Error:', error));
+            });
+
+            container.appendChild(card);
+        });
+    }
+
+    window.onload = renderAnswers;
+}
